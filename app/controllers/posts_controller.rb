@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
+  # Backend API
+
   def index
     @posts = Post.all
   end
@@ -24,6 +26,18 @@ class PostsController < ApplicationController
   def update
     @post.update(post_params)
     redirect_to post_path(@post)
+  end
+
+  # Front End API
+
+  def header
+    post = Post.find(params[:id])
+    render plain: post.title
+  end
+
+  def body
+    post = Post.find(params[:id])
+    render plain: post.description
   end
 
 private
